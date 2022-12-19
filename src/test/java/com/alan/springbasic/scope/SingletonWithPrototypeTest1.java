@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -40,11 +41,11 @@ public class SingletonWithPrototypeTest1 {
     @Scope("singleton") //default
     static class ClientBean {
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanObjectProvider;
+        private Provider<PrototypeBean> prototypeBeanObjectProvider;
 
 
         public int logic(){
-            PrototypeBean prototypeBean = prototypeBeanObjectProvider.getObject();
+            PrototypeBean prototypeBean = prototypeBeanObjectProvider.get();
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
